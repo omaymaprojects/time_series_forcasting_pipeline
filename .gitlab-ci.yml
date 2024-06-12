@@ -1,0 +1,36 @@
+stages:
+  - preprocess
+  - analyze
+  - report
+
+preprocess-data:
+  stage: preprocess
+  script:
+    - echo "Preprocessing data..."
+    - pip install -r requirements.txt
+    - python preprocess.py
+  artifacts:
+    paths:
+      - processed_data.csv
+
+analyze-data:
+  stage: analyze
+  script:
+    - echo "Analyzing data..."
+    - python analyze.py
+  dependencies:
+    - preprocess-data
+  artifacts:
+    paths:
+      - analysis_results.csv
+
+generate-report:
+  stage: report
+  script:
+    - echo "Generating report..."
+    - python generate_report.py
+  dependencies:
+    - analyze-data
+  artifacts:
+    paths:
+      - report.pdf
