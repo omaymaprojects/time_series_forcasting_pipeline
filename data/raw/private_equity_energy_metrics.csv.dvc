@@ -1,0 +1,5 @@
+outs:
+- md5: d8b200cb66cb1eaf092111f2df6a9b24
+  size: 10889
+  hash: md5
+  path: private_equity_energy_metrics.csv

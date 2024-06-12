@@ -23,3 +23,14 @@ analyze-data:
   artifacts:
     paths:
       - analysis_results.csv
+
+generate-report:
+  stage: report
+  script:
+    - echo "Generating report..."
+    - python generate_report.py
+  dependencies:
+    - analyze-data
+  artifacts:
+    paths:
+      - report.pdf
