@@ -10,7 +10,7 @@ preprocess-data:
   script:
     - echo "Preprocessing data..."
     - pip install -r requirements.txt
-    - python preprocess.py
+    - python scripts\preprocess.py
   artifacts:
     paths:
       - processed_data.csv
@@ -19,7 +19,7 @@ analyze-data:
   stage: analyze
   script:
     - echo "Analyzing data..."
-    - python analyze.py
+    - python scripts\analyze.py
   dependencies:
     - preprocess-data
   artifacts:
@@ -30,7 +30,7 @@ generate-report:
   stage: report
   script:
     - echo "Generating report..."
-    - python generate_report.py
+    - python scripts\generate_report.py
   dependencies:
     - analyze-data
   artifacts:
