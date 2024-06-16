@@ -12,7 +12,7 @@ preprocess-data:
     - mkdir -p data/raw data/processed  # Create necessary directories
     - pip install --upgrade pip
     - pip install -r requirements.txt
-    - python scripts/preprocess_data.py
+    - python scripts/preprocess.py
   artifacts:
     paths:
       - data/processed/processed_data.csv
@@ -29,7 +29,7 @@ analyze-data:
     - preprocess-data
   artifacts:
     paths:
-      - data/processed/forecast_results.csv
+      - data/processed/analyze.csv
 
 generate-report:
   stage: report
