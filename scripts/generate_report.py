@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def generate_report(data_file, report_file):
-    data = pd.read_csv(data_gb_file)
+    data = pd.read_csv(data_file)
     plt.figure(figsize=(10, 5))
     plt.plot(data['Forecast'])
     plt.title('Forecast of Capital Invested')
