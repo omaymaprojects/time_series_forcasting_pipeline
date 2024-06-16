@@ -20,8 +20,9 @@ def forecast_capital_invested(input_file, output_file):
     future_exog = exog.tail(12).mean().to_frame().T.reindex(range(12)).fillna(method='ffill')
     forecast = model_fit.forecast(steps=12, exog=future_exog)
     
-    # Save the forecast to a CSV file
-    forecast.to_csv(output_file, header=True)
+    # Save the forecast to a CSV file with a column named 'forecast'
+    forecast_df = pd.DataFrame(forecast, columns=['forecast'])
+    forecast_df.to_csv(output_file, index=False)
 
 if __name__ == "__main__":
     forecast_capital_invested('data/processed/processed_data.csv', 'data/processed/forecast_results.csv')
