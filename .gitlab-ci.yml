@@ -9,9 +9,10 @@ preprocess-data:
   stage: preprocess
   script:
     - echo "Preprocessing data..."
-    - mkdir -p data/processed  # Create the directory if it doesn't exist
+    - mkdir -p data/raw data/processed  # Create necessary directories
+    - pip install --upgrade pip
     - pip install -r requirements.txt
-    - python scripts/preprocess.py
+    - python scripts/preprocess_data.py
   artifacts:
     paths:
       - data/processed/processed_data.csv
@@ -20,24 +21,26 @@ analyze-data:
   stage: analyze
   script:
     - echo "Analyzing data..."
-    - mkdir -p data/analysis  # Create the directory if it doesn't exist
-    - pip install -r requirements.txt  # Ensure requirements are installed
-    - python scripts/analyze.py
+    - mkdir -p data/processed  # Ensure directory exists for analysis output
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - python scripts/forecast_capital_invested.py
   dependencies:
     - preprocess-data
   artifacts:
     paths:
-      - data/analysis/analysis_results.csv
+      - data/processed/forecast_results.csv
 
 generate-report:
   stage: report
   script:
     - echo "Generating report..."
     - mkdir -p data/reports  # Create the directory if it doesn't exist
-    - pip install -r requirements.txt  # Ensure requirements are installed
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
     - python scripts/generate_report.py
   dependencies:
     - analyze-data
   artifacts:
     paths:
-      - data/reports/report.pdf
+      - report.pdf

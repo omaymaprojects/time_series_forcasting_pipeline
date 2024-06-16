@@ -25,4 +25,3 @@ def forecast_capital_invested(input_file, output_file):
 
 if __name__ == "__main__":
     forecast_capital_invested('data/processed/processed_data.csv', 'data/processed/forecast_results.csv')
-
