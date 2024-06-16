@@ -24,7 +24,7 @@ analyze-data:
     - mkdir -p data/processed  # Ensure directory exists for analysis output
     - pip install --upgrade pip
     - pip install -r requirements.txt
-    - python scripts/forecast_capital_invested.py
+    - python scripts/analyze.py
   dependencies:
     - preprocess-data
   artifacts:
