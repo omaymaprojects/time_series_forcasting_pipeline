@@ -11,3 +11,4 @@ def generate_report(data_file, report_file):
 if __name__ == "__main__":
     generate_report('data/processed/forecast_results.csv', 'report.pdf')
 
+
