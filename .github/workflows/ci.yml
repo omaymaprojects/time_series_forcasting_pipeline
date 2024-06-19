@@ -1,0 +1,61 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  preprocess-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Preprocessing data
+        run: |
+          echo "Preprocessing data..."
+          mkdir -p data/raw data/processed  # Create necessary directories
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          python scripts/preprocess.py
+      - name: Upload processed data
+        uses: actions/upload-artifact@v2
+        with:
+          name: processed_data
+          path: data/processed/processed_data.csv
+
+  analyze-data:
+    runs-on: ubuntu-latest
+    needs: preprocess-data
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download processed data
+        uses: actions/download-artifact@v2
+        with:
+          name: processed_data
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Analyzing data
+        run: |
+          echo "Analyzing data..."
+          mkdir -p data/processed  # Ensure directory exists for analysis output
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          python scripts/analyze.py
+      - name: Upload analysis results
+
